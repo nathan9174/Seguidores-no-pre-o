@@ -1,140 +1,224 @@
-
-<!DOCTYPE html>
-<html lang="pt-br">
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Seguidores no Preço</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Fonte parecida com "Serif Bold" -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
-      font-family: 'Dida', sans-serif;
-      background: url('https://play-lh.googleusercontent.com/Apbbz3bClYLXzKjpumbH5lPHqKrzPaB9WYDzBTP6NUI9AB4dGbfOqDW0DbFnSHpFdrDq') no-repeat center center fixed;
+      font-family: 'Orbitron', sans-serif;
+      background: #4B0082 url('https://play-lh.googleusercontent.com/Apbbz3bClYLXzKjpumbH5lPHqKrzPaB9WYDzBTP6NUI9AB4dGbfOqDW0DbFnSHpFdrDq') no-repeat center center fixed;
       background-size: cover;
-      color: #fff;
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 20px;
     }
     .container {
-      max-width: 600px;
-      margin: 2rem auto;
-      background: rgba(255,255,255,0.95);
-      padding: 2rem;
-      border-radius: 12px;
-      color: #333;
+      background: rgba(255 255 255 / 0.85);
+      color: #4B0082;
+      border-radius: 15px;
+      padding: 25px 30px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 5px 15px rgba(75, 0, 130, 0.5);
     }
     h1 {
-      color: #6a1b9a;
+      text-align: center;
+      margin-bottom: 25px;
+      color: #4B0082;
+      font-weight: 700;
+      font-size: 2.5rem;
+      letter-spacing: 0.08em;
     }
-    select, input {
-      width: 100%;
-      padding: 0.7rem;
-      margin-top: 0.5rem;
-      margin-bottom: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 700;
       font-size: 1rem;
+      color: #4B0082;
+    }
+    select, input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin-top: 8px;
+      border-radius: 8px;
+      border: 1px solid #4B0082;
+      font-size: 1rem;
+      font-family: 'Orbitron', sans-serif;
+      transition: border-color 0.3s ease;
+      color: #4B0082;
+      background: #f8f8ff;
+    }
+    select:focus, input[type="text"]:focus, input[type="number"]:focus {
+      border-color: #7b3fbf;
+      outline: none;
+      background: #fff;
+    }
+    .valor {
+      margin-top: 15px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #7b3fbf;
+      min-height: 28px;
     }
     button {
-      background: #6a1b9a;
-      color: white;
-      padding: 1rem;
       width: 100%;
+      margin-top: 25px;
+      padding: 15px;
+      background-color: #7b3fbf;
       border: none;
       border-radius: 8px;
-      font-size: 1.1rem;
+      color: white;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
       cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-weight: 700;
+      box-shadow: 0 4px 8px rgba(123, 63, 191, 0.7);
     }
-    .zap-icon {
+    button:hover {
+      background-color: #592a9e;
+    }
+    .whatsapp {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: #25D366;
       width: 60px;
       height: 60px;
+      background-color: #25d366;
       border-radius: 50%;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.3);
       display: flex;
-      align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      align-items: center;
+      text-decoration: none;
       z-index: 1000;
     }
-    .zap-icon img {
-      width: 35px;
-      height: 35px;
+    .whatsapp svg {
+      width: 32px;
+      height: 32px;
+      fill: white;
+    }
+    /* Aviso topo */
+    .aviso-topo {
+      background: rgba(123,63,191,0.85);
+      color: white;
+      text-align: center;
+      font-weight: 700;
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 0.06em;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 4px 12px rgba(123,63,191,0.8);
+      user-select: none;
     }
   </style>
 </head>
 <body>
+  <div class="aviso-topo">
+    🚀 Em breve atualizações e mais funções!
+  </div>
+
   <div class="container">
     <h1>Seguidores no Preço</h1>
     <label for="categoria">Categoria</label>
-    <select id="categoria">
-      <option value="">Escolha uma categoria</option>
-      <option value="instagram">Instagram</option>
-      <option value="tiktok">TikTok</option>
+    <select id="categoria" onchange="atualizaServico()">
+      <option value="Instagram">Instagram</option>
+      <option value="TikTok">TikTok</option>
     </select>
-
     <label for="servico">Serviço</label>
-    <select id="servico">
-      <option value="">Escolha o serviço</option>
-    </select>
+    <select id="servico"></select>
 
-    <label for="link">Link</label>
+    <label for="link">Link da Foto, Vídeo ou Perfil</label>
     <input type="text" id="link" placeholder="Cole o link aqui" />
 
     <label for="quantidade">Quantidade</label>
-    <input type="number" id="quantidade" min="0" value="0" />
-
-    <button onclick="finalizarCompra()">Finalizar Compra</button>
+    <input type="number" id="quantidade" min="0" placeholder="Digite a quantidade" oninput="calcularValor()" />
+    <div class="valor" id="valorTotal">Valor total: R$ 0,00</div>
+    <button onclick="finalizarPedido()">Finalizar Pedido</button>
   </div>
 
-  <a href="https://wa.me/5521970565050" class="zap-icon" target="_blank">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
+  <a href="https://wa.me/5521970565050" target="_blank" class="whatsapp" aria-label="WhatsApp">
+    <!-- Ícone SVG oficial WhatsApp -->
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M20.52 3.48A11.815 11.815 0 0 0 12 0C5.372 0 0 5.372 0 12c0 2.113.551 4.164 1.6 5.968L0 24l6.238-1.603A11.877 11.877 0 0 0 12 24c6.627 0 12-5.373 12-12 0-3.198-1.24-6.195-3.48-8.52zm-8.53 17.7c-2.39 0-4.53-1.22-5.8-3.14l-.42-.7-3.74 1.01 1-3.66-.46-.7A8.384 8.384 0 0 1 3.5 12c0-4.64 3.77-8.4 8.42-8.4 2.25 0 4.37.88 5.95 2.47a8.34 8.34 0 0 1 2.48 6 8.418 8.418 0 0 1-8.45 8.4z"/>
+      <path d="M17.42 14.19c-.27-.14-1.58-.77-1.83-.86-.25-.09-.44-.13-.62.14s-.71.86-.87 1.04c-.16.18-.32.2-.59.07s-1.12-.41-2.13-1.31c-.79-.7-1.32-1.57-1.48-1.85s-.02-.43.11-.57c.11-.11.25-.29.38-.44.13-.15.17-.26.25-.43.08-.16.04-.3-.02-.43s-.62-1.5-.85-2.05c-.22-.54-.45-.47-.62-.48-.16 0-.35 0-.54 0s-.43.06-.66.3c-.23.23-.87.85-.87 2.07 0 1.22.89 2.4 1.02 2.56.14.16 1.77 2.7 4.29 3.79 3.02 1.3 3.02.87 3.56.82.54-.06 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.08-.12-.29-.19-.56-.33z"/>
+    </svg>
   </a>
 
   <script>
-    const servicos = {
-      instagram: [
-        { nome: "Seguidores Brasileiros", valor: 12.00 },
-        { nome: "Seguidores Mundiais", valor: 6.00 },
-        { nome: "Curtidas", valor: 1.90 },
-        { nome: "Visualizações", valor: 2.90 }
-      ],
-      tiktok: [
-        { nome: "Seguidores Mundiais", valor: 6.00 },
-        { nome: "Curtidas", valor: 2.00 },
-        { nome: "Visualizações", valor: 3.00 }
-      ]
+    const precos = {
+      Instagram: {
+        'Seguidores Brasileiros': 12.00,
+        'Seguidores Mundiais': 6.00,
+        'Curtidas': 2.50,
+        'Visualizações': 1.50,
+        'Foto (Visualizações)': 1.00
+      },
+      TikTok: {
+        'Seguidores Brasileiros': 12.00,
+        'Seguidores Mundiais': 6.00,
+        'Curtidas': 1.90,
+        'Visualizações': 1.50
+      }
     };
 
-    const categoriaSelect = document.getElementById("categoria");
-    const servicoSelect = document.getElementById("servico");
-    const linkInput = document.getElementById("link");
-    const quantidadeInput = document.getElementById("quantidade");
+    function atualizaServico() {
+      const categoria = document.getElementById('categoria').value;
+      const servicoSelect = document.getElementById('servico');
+      servicoSelect.innerHTML = '';
 
-    categoriaSelect.addEventListener("change", () => {
-      const categoria = categoriaSelect.value;
-      servicoSelect.innerHTML = '<option value="">Escolha o serviço</option>';
-      if (servicos[categoria]) {
-        servicos[categoria].forEach(servico => {
-          const opt = document.createElement("option");
-          opt.value = `${servico.nome} - R$${servico.valor.toFixed(2)}`;
-          opt.textContent = `${servico.nome} - R$${servico.valor.toFixed(2)}`;
-          servicoSelect.appendChild(opt);
-        });
+      for (const servico in precos[categoria]) {
+        const option = document.createElement('option');
+        option.value = servico;
+        option.textContent = servico;
+        servicoSelect.appendChild(option);
       }
-    });
 
-    function finalizarCompra() {
-      const servico = servicoSelect.value;
-      const link = linkInput.value;
-      const quantidade = quantidadeInput.value;
-      const texto = `Olá! Gostaria de comprar:
-Serviço: ${servico}
-Link: ${link}
-Quantidade: ${quantidade}`;
-      const url = `https://wa.me/5521970565050?text=${encodeURIComponent(texto)}`;
-      window.open(url, "_blank");
+      calcularValor();
     }
+
+    function calcularValor() {
+      const categoria = document.getElementById('categoria').value;
+      const servico = document.getElementById('servico').value;
+      let quantidade = parseInt(document.getElementById('quantidade').value);
+      if (isNaN(quantidade) || quantidade < 0) quantidade = 0;
+      const precoPorMil = precos[categoria][servico];
+      const valorTotal = (quantidade / 1000) * precoPorMil;
+      document.getElementById('valorTotal').textContent = 'Valor total: R$ ' + valorTotal.toFixed(2);
+    }
+
+    function finalizarPedido() {
+      const categoria = document.getElementById('categoria').value;
+      const servico = document.getElementById('servico').value;
+      const link = document.getElementById('link').value.trim();
+      const quantidade = document.getElementById('quantidade').value;
+      if (!link) {
+        alert('Por favor, insira o link.');
+        return;
+      }
+      if (!quantidade || quantidade <= 0) {
+        alert('Por favor, insira uma quantidade válida.');
+        return;
+      }
+      const msg = `Categoria: ${categoria}%0AServiço: ${servico}%0ALink: ${link}%0AQuantidade: ${quantidade}`;
+      window.open(`https://wa.me/5521970565050?text=${msg}`, '_blank');
+    }
+
+    // Inicializa a lista de serviços no carregamento da página
+    atualizaServico();
   </script>
 </body>
 </html>
