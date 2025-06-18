@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seguidores no Preço</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Dida', sans-serif;
+      background: url('https://play-lh.googleusercontent.com/Apbbz3bClYLXzKjpumbH5lPHqKrzPaB9WYDzBTP6NUI9AB4dGbfOqDW0DbFnSHpFdrDq') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+    .container {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: rgba(255,255,255,0.95);
+      padding: 2rem;
+      border-radius: 12px;
+      color: #333;
+    }
+    h1 {
+      color: #6a1b9a;
+    }
+    select, input {
+      width: 100%;
+      padding: 0.7rem;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    button {
+      background: #6a1b9a;
+      color: white;
+      padding: 1rem;
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+    .zap-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25D366;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      z-index: 1000;
+    }
+    .zap-icon img {
+      width: 35px;
+      height: 35px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Seguidores no Preço</h1>
+    <label for="categoria">Categoria</label>
+    <select id="categoria">
+      <option value="">Escolha uma categoria</option>
+      <option value="instagram">Instagram</option>
+      <option value="tiktok">TikTok</option>
+    </select>
+
+    <label for="servico">Serviço</label>
+    <select id="servico">
+      <option value="">Escolha o serviço</option>
+    </select>
+
+    <label for="link">Link</label>
+    <input type="text" id="link" placeholder="Cole o link aqui" />
+
+    <label for="quantidade">Quantidade</label>
+    <input type="number" id="quantidade" min="0" value="0" />
+
+    <button onclick="finalizarCompra()">Finalizar Compra</button>
+  </div>
+
+  <a href="https://wa.me/5521970565050" class="zap-icon" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
+  </a>
+
+  <script>
+    const servicos = {
+      instagram: [
+        { nome: "Seguidores Brasileiros", valor: 12.00 },
+        { nome: "Seguidores Mundiais", valor: 6.00 },
+        { nome: "Curtidas", valor: 1.90 },
+        { nome: "Visualizações", valor: 2.90 }
+      ],
+      tiktok: [
+        { nome: "Seguidores Mundiais", valor: 6.00 },
+        { nome: "Curtidas", valor: 2.00 },
+        { nome: "Visualizações", valor: 3.00 }
+      ]
+    };
+
+    const categoriaSelect = document.getElementById("categoria");
+    const servicoSelect = document.getElementById("servico");
+    const linkInput = document.getElementById("link");
+    const quantidadeInput = document.getElementById("quantidade");
+
+    categoriaSelect.addEventListener("change", () => {
+      const categoria = categoriaSelect.value;
+      servicoSelect.innerHTML = '<option value="">Escolha o serviço</option>';
+      if (servicos[categoria]) {
+        servicos[categoria].forEach(servico => {
+          const opt = document.createElement("option");
+          opt.value = `${servico.nome} - R$${servico.valor.toFixed(2)}`;
+          opt.textContent = `${servico.nome} - R$${servico.valor.toFixed(2)}`;
+          servicoSelect.appendChild(opt);
+        });
+      }
+    });
+
+    function finalizarCompra() {
+      const servico = servicoSelect.value;
+      const link = linkInput.value;
+      const quantidade = quantidadeInput.value;
+      const texto = `Olá! Gostaria de comprar:
+Serviço: ${servico}
+Link: ${link}
+Quantidade: ${quantidade}`;
+      const url = `https://wa.me/5521970565050?text=${encodeURIComponent(texto)}`;
+      window.open(url, "_blank");
+    }
+  </script>
+</body>
+</html>
